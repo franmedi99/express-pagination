@@ -1,0 +1,35 @@
+<pre>
+
+    pagina: {{page}}
+    {{#each results}}
+            {{name}}
+
+    {{/each}}
+
+</pre>
+
+
+
+<div class="row">
+
+     {{#if paginas}}
+   
+    <nav class="mx-auto">
+        <ul class="pagination">
+        {{{fp page}}}
+    {{{ap page paginas}}}
+        {{{lp page paginas}}}
+        </ul>
+<h6 class="text-center">paginas encontradas: {{paginas}}</h6>
+
+    </nav>
+
+
+
+     {{/if}}
+
+</div>
+<script>
+    
+
+</script>
