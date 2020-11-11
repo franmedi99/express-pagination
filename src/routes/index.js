@@ -6,9 +6,14 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/users/:page', async(req,res,next)=>{
+router.get('/users/:page', async(req,res)=>{
     const perpage = 2;
-    const page= req.params.page || 1;
+    var page= req.params.page || 1;
+    if (page <= 0 ||  page!= Number(page) || page % 1 !== 0 ){
+    res.redirect('/users/1')
+        }
+
+
     const offset = (perpage * page) - perpage;
     const results =  await pool.query("select * from users limit "+perpage+" OFFSET "+offset)
     const count = await pool.query("Select count(*) as total from users")
@@ -19,11 +24,7 @@ router.get('/users/:page', async(req,res,next)=>{
 
     
     if(count2 > 0 ){
-        console.log(JSON.parse(JSON.stringify(results)))
-      
-        console.log('offset: '+offset)
-        console.log('total de paginas: '+count[0]['total'])
-      
+
         res.render('users/user',{results,page,paginas})
     }
 })
